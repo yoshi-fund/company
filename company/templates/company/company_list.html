@@ -1,0 +1,115 @@
+{% extends 'company/base.html' %}
+
+{% block content %}
+
+<!-- 内部スタイル -->
+<style>
+    .custom-shadow {
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* 影の設定 */
+    }
+    .custom-dropdown {
+        margin-right: 10px; /* 右のマージンを追加 */
+        width: 150px; /* 幅を150pxに設定 */
+    }
+    .custom-font {
+        font-size: 20px;
+        color: rgb(23, 61, 108);
+    }
+</style>
+
+
+
+<!-- 検索フォーム -->
+<br>
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-5">  
+            <form action="" method="get" class="d-flex">
+                <input name="query" type="text" placeholder="会社名" class="form-control me-2"/>
+                <button type="submit" class="btn btn-outline-secondary">検索</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- サイドバーとメインコンテンツのレイアウト -->
+<div class="container">
+    <div class="row">
+        <!-- サイドバーのセクション -->
+        <div class="col-md-2 text-center">
+            <div class="position-fixed">
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link active font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=平均年収">平均年収</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=勤続年数">勤続年数</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=平均年齢">平均年齢</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=株価上昇率">株価上昇率</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=売上高">売上高3年平均</a>
+                    </li>
+                    <!-- Add other links here -->
+                </ul>
+            </div>
+        </div>
+        <!-- メインコンテンツのセクション -->
+                <div class="col-md-10">
+                    <div class="main-content">
+                        <!-- ドロップダウンメニュー -->
+                        <form action="" method="get" class="d-flex justify-content-end">
+                            <input type="hidden" name="ordering" value="{{ request.GET.ordering|default:'売上高' }}">
+                            <select name="order_direction" class="form-select custom-dropdown" onchange="this.form.submit()">
+                                <option value="desc" {% if request.GET.order_direction == "desc" %} selected {% endif %}>高い順</option>
+                                <option value="asc" {% if request.GET.order_direction == "asc" %} selected {% endif %}>低い順</option>
+                            </select>
+                        </form>
+
+                        <br>
+
+                        <!-- 企業情報のカード -->
+            {% for company in object_list %}
+                        <div class="row">
+                            <div class="col-md-10 d-flex justify-content-center">
+                                <div class="card text-center custom-shadow mx-auto" style="width: 25rem;">
+                                    {% if company.会社ロゴ %}
+                                        <img src="{{ company.会社ロゴ.url }}" alt="{{ company.会社名 }}" class="card-img-top">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <h5 class="card-header link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                            <a href="{% url 'company:detail' company.pk %}">{{ company.会社名 }}</a>
+                                        </h5>
+                                        <br>
+                                        <p class="card-text">業種: {{ company.get_industry_display }}</p>
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">{{ company.事業内容 | linebreaks }}</li>
+                                            <li class="list-group-item">平均年齢: {{ company.平均年齢 }}歳</li>
+                                            <li class="list-group-item">平均年収: {{ company.平均年収 }}万</li>
+                                            <li class="list-group-item">勤続年数: {{ company.勤続年数 }}年</li>
+                                            <li class="list-group-item">売上高3年平均: {{ company.売上高 }}%</li>
+                                            <li class="list-group-item">株価上昇率<small>(2020年3月〜2023年3月)</small>: {{ company.株価上昇率 }}%</li>
+                                            <li class="list-group-item">主要な保有銘柄: {{ company.持ち株 }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="border-width: 5px; width: 50%; margin-left: auto; margin-right: auto;">
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,33 @@
+{% extends 'company/base.html' %}
+{% load widget_tweaks %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6"> <!-- ここで幅を調整 -->
+            <br>
+            <h1 class="text-center mb-3">財務指標の入力</h1>
+            <form method="post" class="text-center">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field|add_class:'form-control' }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-primary">送信</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

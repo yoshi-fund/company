@@ -1,0 +1,119 @@
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+</head>
+<body>
+
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color:rgb(23, 61, 108);" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" style="color: white; font-size: 20px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" href="{% url 'company:list' %}">Top</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" style="color: white; font-size: 20px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" href="{% url 'cluster:cluster_view' %}">Cluster Model</a></li>
+                    
+                    <!-- ドロップダウンメニュー -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-lg-3 py-3 py-lg-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; font-size: 20px; font-family:'Courier New', Courier, monospace;">
+                            業種
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=1 %}">電気機器</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=2 %}">情報通信</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=3 %}">医薬品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=4 %}">輸送用機器</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=5 %}">機械</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=6 %}">卸売</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=7 %}">小売</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=8 %}">化学</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=9 %}">サービス</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=11 %}">精密機器</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=12 %}">食料品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=14 %}">不動産</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=15 %}">鉱業</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=16 %}">ゴム製品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=18 %}">その他製品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=19 %}">建設</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=20 %}">鉄鋼</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=21 %}">石油・石炭製品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=22 %}">海運</a></li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% if is_paginated %}
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}&ordering={{ request.GET.ordering }}&order_direction={{ request.GET.order_direction }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+        {% for num in paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}&ordering={{ request.GET.ordering }}&order_direction={{ request.GET.order_direction }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}&ordering={{ request.GET.ordering }}&order_direction={{ request.GET.order_direction }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}
+
+
+    
+
+    <!-- javascriptの読み込み -->
+    <script>
+      
+    let lastScrollTop = 0; // 最後に記録されたスクロール位置
+
+    window.addEventListener("scroll", function() {
+    let currentScroll = window.pageYOffset || document.documentElement.scrollTop; 
+    if (currentScroll > lastScrollTop) {
+        // 下にスクロールしている場合、ナビゲーションバーを隠す
+        document.getElementById("mainNav").style.top = "-50px"; // ここでの -50px はナビゲーションバーの高さに応じて調整してください
+    } else {
+        // 上にスクロールしている場合、ナビゲーションバーを表示する
+        document.getElementById("mainNav").style.top = "0";
+    }
+    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // 負の値にならないようにする
+    }, false);
+
+    </script>
+    
+</body>
+</html>
+

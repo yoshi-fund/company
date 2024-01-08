@@ -1,0 +1,243 @@
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <!-- style属性 -->
+    <style>
+        .fixed-width {
+            width: 150px;  /* 幅を100ピクセルに固定 */
+        }
+        .fixed-height {
+            height: 50px;  /* 高さを50ピクセルに固定 */
+        }
+
+        .font-size-fami {
+            font-size: 20px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+    
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light mb-3" style="background-color:rgb(23, 61, 108);" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="index.html"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" style="color: white; font-size: 20px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" href="{% url 'company:list' %}">Top</a></li>
+                    <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" style="color: white; font-size: 20px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" href="{% url 'cluster:cluster_view' %}">Cluster Model</a></li>
+                    
+                    <!-- ドロップダウンメニューの追加 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle px-lg-3 py-3 py-lg-4" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; font-size: 20px; font-family:'Courier New', Courier, monospace;">
+                            業種
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=1 %}">電気機器</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=2 %}">情報通信</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=3 %}">医薬品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=4 %}">輸送用機器</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=5 %}">機械</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=6 %}">卸売</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=7 %}">小売</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=8 %}">化学</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=9 %}">サービス</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=11 %}">精密機器</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=12 %}">食料品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=14 %}">不動産</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=15 %}">鉱業</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=16 %}">ゴム製品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=18 %}">その他製品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=19 %}">建設</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=20 %}">鉄鋼</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=21 %}">石油・石炭製品</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:industry' industry=22 %}">海運</a></li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+
+<div class="back-color">
+{% if company.会社ロゴ %}
+<div class="d-flex justify-content-center align-items-center">
+    <img src="{{ company.会社ロゴ.url }}" alt="" class="col-md-2 mb-3">
+</div>
+{% endif %}
+</div>
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card w-50 mb-5"> <!-- ここで幅を設定 -->
+        <div class="text-center new_fonts card-header" 
+        style="font-size: 30px;"><b>{{company.会社名}}</b></div>
+    </div>
+</div>
+
+<br>
+<div class="d-flex justify-content-center align-items-center" style="height: 20vh;">
+    <div class="mb-5 w-50">
+        <label for="" class="form-label font-type font-size-fami">事業内容</label>
+        <textarea class="form-control" style="font-size: 20px;" readonly>{{company.事業内容}}</textarea>
+       
+    </div>
+</div>
+
+
+
+
+    <!-- テーブル（成長性指標） -->
+<br>
+    <div class="d-flex justify-content-center align-items-center" style="height: 20vh;">
+        <div class="mb-5 w-50">
+            <label for="" class="form-label font-type font-size-fami">成長性指標</label>
+            
+            <!-- テーブル -->
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col" class="fixed-width ">売上高３年平均</th>
+                        <th scope="col" class="fixed-width">営業益３年平均</th>
+                        <th scope="col" class="fixed-width">ROE</th>
+                        <th scope="col" class="fixed-width">粗利率</th>
+                        <th scope="col" class="fixed-width">株価上昇率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fixed-height">{{company.売上高}}%</td>
+                        <td class="fixed-height">{{company.営業利益}}%</td>
+                        <td class="fixed-height">{{company.roe}}%</td>
+                        <td class="fixed-height">{{company.粗利率}}%</td>
+                        <td class="fixed-height">{{company.株価上昇率}}%</td>
+                    </tr>
+                    <!-- 他の行も同様に追加可能 -->
+                </tbody>
+            </table>
+           
+        </div>
+    </div>
+
+
+    <!-- テーブル（安定性） -->
+<br>
+    <div class="d-flex justify-content-center align-items-center" style="height: 20vh;">
+        <div class="mb-5 w-50">
+            <label for="" class="form-label font-type font-size-fami">財務基盤指標</label>
+            
+            <!-- テーブル -->
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col" class="fixed-width">有形固定資産</th>
+                        <th scope="col" class="fixed-width">固定負債</th>
+                        <th scope="col" class="fixed-width">自己資本比率</th>     
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fixed-height">{{company.有形固定資産}}%</td>
+                        <td class="fixed-height">{{company.固定負債}}%</td>
+                        <td class="fixed-height">{{company.自己資本比率}}%</td>
+                    </tr>
+                    <!-- 他の行も同様に追加可能 -->
+                </tbody>
+            </table>
+           
+        </div>
+    </div>
+   
+
+    <!-- テーブル（バリュエーション） -->
+
+    <br>
+    <div class="d-flex justify-content-center align-items-center" style="height: 20vh;">
+        <div class="mb-5 w-50">
+            <label for="" class="form-label font-type font-size-fami">バリュエーション指標</label>
+            
+            <!-- テーブル -->
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col" class="fixed-width">PER</th>
+                        <th scope="col" class="fixed-width">PBR</th>    
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fixed-height">{{company.per}}%</td>
+                        <td class="fixed-height">{{company.pbr}}%</td>
+                    </tr>
+                    <!-- 他の行も同様に追加可能 -->
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+   
+
+    <!-- テーブル（人的資本） -->
+
+    <br>
+    <div class="d-flex justify-content-center align-items-center" style="height: 20vh;">
+        <div class="mb-5 w-50">
+            <label for="" class="form-label font-type font-size-fami">人的資本</label>
+            
+            <!-- テーブル -->
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col" class="fixed-width">平均年齢</th>
+                        <th scope="col" class="fixed-width">平均年収</th>
+                        <th scope="col" class="fixed-width">勤続年数</th>     
+                        <th scope="col" class="fixed-width">従業員数</th> 
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fixed-height">{{company.平均年齢}}歳</td>
+                        <td class="fixed-height">{{company.平均年収}}百万</td>
+                        <td class="fixed-height">{{company.勤続年数}}年</td>
+                        <td class="fixed-height">{{company.従業員数}}人</td>
+                    </tr>
+                    <!-- 他の行も同様に追加可能 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+      
+        let lastScrollTop = 0; // 最後に記録されたスクロール位置
+    
+        window.addEventListener("scroll", function() {
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop; 
+        if (currentScroll > lastScrollTop) {
+            // 下にスクロールしている場合、ナビゲーションバーを隠す
+            document.getElementById("mainNav").style.top = "-50px"; // ここでの -50px はナビゲーションバーの高さに応じて調整してください
+        } else {
+            // 上にスクロールしている場合、ナビゲーションバーを表示する
+            document.getElementById("mainNav").style.top = "0";
+        }
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // 負の値にならないようにする
+        }, false);
+    
+    </script>
+    
+</body>
+</html>
