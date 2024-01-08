@@ -58,7 +58,7 @@ class Delete(generic.DeleteView):
 
 class Industry(generic.ListView):
     template_name = 'company/company_list.html'
-    paginate_by = 8  # Add pagination as needed
+    paginate_by = 8  
 
     def get_queryset(self):
         industry_id = self.kwargs['industry']
@@ -66,19 +66,19 @@ class Industry(generic.ListView):
         ordering = self.request.GET.get('ordering', '株価上昇率')  # Default to '株価上昇率' if not specified
         order_direction = self.request.GET.get('order_direction', 'desc')
 
-        # Handle ascending/descending order
+        
         if order_direction == 'asc':
             ordering = ordering
         else:
             ordering = '-' + ordering
 
-        # Build the queryset based on filters
+       
         queryset = Company.objects.filter(industry=industry_id)
 
         if query:
             queryset = queryset.filter(会社名__icontains=query)
 
-        # Apply the specified ordering
+       
         queryset = queryset.order_by(ordering)
 
         return queryset
