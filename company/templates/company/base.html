@@ -104,7 +104,7 @@
     let currentScroll = window.pageYOffset || document.documentElement.scrollTop; 
     if (currentScroll > lastScrollTop) {
         // 下にスクロールしている場合、ナビゲーションバーを隠す
-        document.getElementById("mainNav").style.top = "-50px"; // ここでの -50px はナビゲーションバーの高さに応じて調整してください
+        document.getElementById("mainNav").style.top = "-50px"; 
     } else {
         // 上にスクロールしている場合、ナビゲーションバーを表示する
         document.getElementById("mainNav").style.top = "0";
