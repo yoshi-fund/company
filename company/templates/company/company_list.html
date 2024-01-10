@@ -15,6 +15,20 @@
         font-size: 20px;
         color: rgb(23, 61, 108);
     }
+    
+    .custom-sidebar .list-group-item:hover {
+        background-color: #f8f9fa;
+        color:darkcyan;
+    }
+    .custom-sidebar .list-group-item.active {
+        background-color: rgba(0, 0, 0, 0.2); /* 選択された項目の背景色 */
+        color: black; /* 選択された項目の文字色 */
+    }
+
+    .custom-sidebar .list-group-item {
+        padding-top: 20px; /* 上のパディングを増やす */
+        padding-bottom: 20px; /* 下のパディングを増やす */
+    }
 </style>
 
 
@@ -36,28 +50,33 @@
 <div class="container">
     <div class="row">
         <!-- サイドバーのセクション -->
-        <div class="col-md-2 text-center">
-            <div class="position-fixed">
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2">
-                        <a class="nav-link active font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=平均年収">平均年収</a>
+        <div class="col-md-2">
+            <!-- Bootstrapのcardクラスを使用したサイドバーのコンテナ -->
+            <div class="card text-center custom-sidebar custom-font">
+                <div class="card-header">
+                    絞り込み項目
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <a class="nav-link" href="?ordering=平均年収">平均年収</a>
                     </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=勤続年数">勤続年数</a>
+                    <li class="list-group-item">
+                        <a class="nav-link" href="?ordering=勤続年数">勤続年数</a>
                     </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=平均年齢">平均年齢</a>
+                    <li class="list-group-item">
+                        <a class="nav-link" href="?ordering=平均年齢">平均年齢</a>
                     </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=株価上昇率">株価上昇率</a>
+                    <li class="list-group-item">
+                        <a class="nav-link" href="?ordering=株価上昇率">株価上昇率</a>
                     </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link font-weight-bold card border border-secondary rounded card-body highlight-on-click" href="?ordering=売上高">売上高3年平均</a>
+                    <li class="list-group-item">
+                        <a class="nav-link" href="?ordering=売上高">売上高3年平均</a>
                     </li>
-                    <!-- Add other links here -->
+                    <!-- 他のリンクはここに追加 -->
                 </ul>
             </div>
         </div>
+        
         <!-- メインコンテンツのセクション -->
                 <div class="col-md-10">
                     <div class="main-content">
@@ -73,8 +92,8 @@
                         <br>
 
                         <!-- 企業情報のカード -->
-            {% for company in object_list %}
-                        <div class="row">
+                        {% for company in object_list %}
+                        <div class="row mb-5">
                             <div class="col-md-10 d-flex justify-content-center">
                                 <div class="card text-center custom-shadow mx-auto" style="width: 25rem;">
                                     {% if company.会社ロゴ %}
@@ -99,7 +118,6 @@
                                 </div>
                             </div>
                         </div>
-                        <hr style="border-width: 5px; width: 50%; margin-left: auto; margin-right: auto;">
                         {% endfor %}
                     </div>
                 </div>
@@ -108,6 +126,16 @@
     </div>
 </div>  
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentUrl = window.location.href;
+        document.querySelectorAll('.custom-sidebar .nav-link').forEach(function(link) {
+            if (link.href === currentUrl) {
+                link.parentElement.classList.add('active'); // parentElement (list-group-item) に 'active' クラスを追加
+            }
+        });
+    });
+</script>
 
 {% endblock %}
 
