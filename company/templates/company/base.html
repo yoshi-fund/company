@@ -96,23 +96,7 @@
     
 
     <!-- javascriptの読み込み -->
-    <script>
-      
-    let lastScrollTop = 0; // 最後に記録されたスクロール位置
-
-    window.addEventListener("scroll", function() {
-    let currentScroll = window.pageYOffset || document.documentElement.scrollTop; 
-    if (currentScroll > lastScrollTop) {
-        // 下にスクロールしている場合、ナビゲーションバーを隠す
-        document.getElementById("mainNav").style.top = "-50px"; 
-    } else {
-        // 上にスクロールしている場合、ナビゲーションバーを表示する
-        document.getElementById("mainNav").style.top = "0";
-    }
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // 負の値にならないようにする
-    }, false);
-
-    </script>
+   
     
 </body>
 </html>
