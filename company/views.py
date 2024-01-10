@@ -63,22 +63,22 @@ class Industry(generic.ListView):
     def get_queryset(self):
         industry_id = self.kwargs['industry']
         query = self.request.GET.get('query')
-        ordering = self.request.GET.get('ordering', '株価上昇率')  # Default to '株価上昇率' if not specified
+        ordering = self.request.GET.get('ordering', '株価上昇率')  # デフォルト値 '株価上昇率'
         order_direction = self.request.GET.get('order_direction', 'desc')
 
-        
+        if not ordering:
+            ordering = '株価上昇率'  # 空の場合はデフォルト値を設定
+
         if order_direction == 'asc':
             ordering = ordering
         else:
             ordering = '-' + ordering
 
-       
         queryset = Company.objects.filter(industry=industry_id)
 
         if query:
             queryset = queryset.filter(会社名__icontains=query)
 
-       
         queryset = queryset.order_by(ordering)
 
         return queryset
