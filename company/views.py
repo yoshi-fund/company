@@ -82,7 +82,16 @@ class Industry(generic.ListView):
         queryset = queryset.order_by(ordering)
 
         return queryset
+    
 
+class Cluster(generic.ListView):
+    template_name = 'company/company_list.html'
+    paginate_by = 8
+    
+    def get_queryset(self):
+        cluste_id = self.kwargs['cluster']
+        cluster_list = Company.objects.filter(cluster=cluste_id).order_by('-平均年収')
+        return cluster_list
     
 
 
