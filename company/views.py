@@ -89,9 +89,18 @@ class Cluster(generic.ListView):
     paginate_by = 8
     
     def get_queryset(self):
-        cluste_id = self.kwargs['cluster']
-        cluster_list = Company.objects.filter(cluster=cluste_id).order_by('-平均年収')
-        return cluster_list
+        cluster_id = self.kwargs['cluster']
+        ordering = self.request.GET.get('ordering', '平均年収')  
+        order_direction = self.request.GET.get('order_direction', 'desc')  # デフォルトは降順
+
+        # 昇順/降順の設定
+        if order_direction == 'asc':
+            ordering = ordering
+        else:
+            ordering = '-' + ordering
+
+       
+        return Company.objects.filter(cluster=cluster_id).order_by(ordering)
     
 
 

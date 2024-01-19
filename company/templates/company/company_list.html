@@ -50,32 +50,33 @@
 <div class="container">
     <div class="row">
         <!-- サイドバーのセクション -->
-        <div class="col-md-2">
-            <!-- Bootstrapのcardクラスを使用したサイドバーのコンテナ -->
-            <div class="card text-center custom-sidebar custom-font position-fixed">
-                <div class="card-header">
-                    絞り込み項目
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <a class="nav-link" href="?ordering=平均年収">平均年収</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a class="nav-link" href="?ordering=勤続年数">勤続年数</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a class="nav-link" href="?ordering=平均年齢">平均年齢</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a class="nav-link" href="?ordering=株価上昇率">株価上昇率</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a class="nav-link" href="?ordering=売上高">売上高3年平均</a>
-                    </li>
-                    <!-- 他のリンクはここに追加 -->
-                </ul>
-            </div>
+       <div class="col-md-2">
+    <!-- Bootstrapのcardクラスを使用したサイドバーのコンテナ -->
+    <div class="card text-center custom-sidebar custom-font position-fixed">
+        <div class="card-header">
+            絞り込み項目
         </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a class="nav-link {% if request.GET.ordering == '平均年収' %}active{% endif %}" href="?ordering=平均年収">平均年収</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link {% if request.GET.ordering == '勤続年数' %}active{% endif %}" href="?ordering=勤続年数">勤続年数</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link {% if request.GET.ordering == '平均年齢' %}active{% endif %}" href="?ordering=平均年齢">平均年齢</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link {% if request.GET.ordering == '株価上昇率' %}active{% endif %}" href="?ordering=株価上昇率">株価上昇率</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link {% if request.GET.ordering == '売上高' %}active{% endif %}" href="?ordering=売上高">売上高3年平均</a>
+            </li>
+            <!-- 他のリンクはここに追加 -->
+        </ul>
+    </div>
+</div>
+
         
         <!-- メインコンテンツのセクション -->
                 <div class="col-md-10">
@@ -130,15 +131,27 @@
 </div>  
 
 <script>
+    function getQueryParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
-        var currentUrl = window.location.href;
+        var currentOrdering = getQueryParameterByName('ordering');
         document.querySelectorAll('.custom-sidebar .nav-link').forEach(function(link) {
-            if (link.href === currentUrl) {
-                link.parentElement.classList.add('active'); // parentElement (list-group-item) に 'active' クラスを追加
+            var linkOrdering = getQueryParameterByName('ordering', link.href);
+            if (currentOrdering === linkOrdering) {
+                link.parentElement.classList.add('active'); 
             }
         });
     });
 </script>
+
 
 {% endblock %}
 
