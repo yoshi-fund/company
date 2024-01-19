@@ -10,4 +10,5 @@ urlpatterns = [
     path('delete/', views.Delete.as_view(), name='delete'),
     path('detail/<int:pk>', views.Detail.as_view(), name='detail'),
     path('industry/<int:industry>', views.Industry.as_view(), name='industry'),
+    path('cluster_list/<int:cluster>', views.Cluster.as_view(), name='cluster')
 ]
