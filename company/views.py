@@ -13,7 +13,7 @@ from django.core.exceptions import FieldError
 
 class List(generic.ListView):
     model = Company
-    paginate_by = 8
+    paginate_by = 20
     
     def get_queryset(self):
         query = self.request.GET.get('query')
@@ -58,7 +58,7 @@ class Delete(generic.DeleteView):
 
 class Industry(generic.ListView):
     template_name = 'company/company_list.html'
-    paginate_by = 8  
+    paginate_by = 20 
 
     def get_queryset(self):
         industry_id = self.kwargs['industry']
@@ -86,7 +86,7 @@ class Industry(generic.ListView):
 
 class Cluster(generic.ListView):
     template_name = 'company/company_list.html'
-    paginate_by = 8
+    paginate_by = 20
     
     def get_queryset(self):
         cluster_id = self.kwargs['cluster']
