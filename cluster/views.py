@@ -5,7 +5,7 @@ import pandas as pd
 import joblib
 
 # モデルのロード
-kmeans_model = joblib.load('/Users/anaiyoshikazu/test_mldl/fututer/kmeans_model.pkl')
+kmeans_model = joblib.load('/Users/anaiyoshikazu/yos/kmeans_model.pkl')
 
 class ClusterView(View):
     form_class = DataInputForm
