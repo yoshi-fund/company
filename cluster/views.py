@@ -29,9 +29,20 @@ class ClusterView(View):
 
             # NaN値の処理（必要に応じて）
             new_data.fillna(0, inplace=True)
+            
+             # クラスタラベルに対応する名前のマッピング
+            cluster_names = {
+                0: '平均的な会社',
+                1: '大量に建物を保有',
+                2: '利益成長化け物',
+                3: '出来杉くん(優秀)'
+            }
 
             # クラスタ予測
             cluster_label = kmeans_model.predict(new_data)
-            return render(request, 'cluster/classification_result.html', {'cluster_label': cluster_label[0]})
+            # クラスターラベルを名前に変換
+            cluster_name = cluster_names.get(cluster_label[0], '未知のクラスター')
+            # 変換されたクラスター名をテンプレートに渡す
+            return render(request, 'cluster/classification_result.html', {'cluster_name': cluster_name})
         
         return render(request, self.template_name, {'form': form})
