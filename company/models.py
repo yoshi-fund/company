@@ -72,11 +72,9 @@ class Company(models.Model):
     per = models.FloatField('per', null=True, blank=True)
     
     industry = models.IntegerField('業種',null=True, blank=True, choices=CATEGORY)
-    
-    海外売上高比率 = models.FloatField('海外売上高比率', null=True, blank=True)
 
 
-# 表示内容
+# Human
     
     会社ロゴ = models.ImageField('会社ロゴ', upload_to='company', null=True, blank=True)
     
@@ -92,7 +90,24 @@ class Company(models.Model):
     
     事業内容 = models.TextField('事業内容', null=True, blank=True)
     
-
+    # 新たにフィールド追加
+    
+    流動比率 = models.FloatField('流動比率', null=True, blank=True)
+    
+    取締役報酬 = models.FloatField('取締役報酬', null=True, blank=True)
+    
+    人件費_純利益 = models.FloatField('純利益に占める人件費', null=True, blank=True)
+    
+    賞与引当金_従業員数 = models.FloatField('従業員一人当たりの賞与引当金', null=True, blank=True)
+    
+    退職給付引当金_従業員数 = models.FloatField('従業員一人あたりの退職給付引当金', null=True, blank=True)
+    
+    従業員一人当たりの売上 = models.FloatField('従業員一人当たりの売上', null=True, blank=True)
+    
+    研究開発売上比率 = models.FloatField('研究開発売上比率', null=True, blank=True)
+    
+    上場年数 = models.FloatField('上場年数', null=True, blank=True)
+    
     def __str__(self):
         return f'{self.会社名}' 
 
