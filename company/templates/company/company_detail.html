@@ -78,7 +78,7 @@
 
 
     <!-- テーブル（安定性） -->
-<br>
+<br> 
     <div class="d-flex justify-content-center align-items-center" style="height: 20vh;">
         <div class="mb-5 w-50">
             <label for="" class="form-label font-type font-size-fami">財務基盤指標</label>
@@ -90,6 +90,7 @@
                         <th scope="col" class="fixed-width">有形固定資産</th>
                         <th scope="col" class="fixed-width">固定負債</th>
                         <th scope="col" class="fixed-width">自己資本比率</th>     
+                        <th scope="col" class="fixed-width">流動比率</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -97,6 +98,7 @@
                         <td class="fixed-height">{{company.有形固定資産}}%</td>
                         <td class="fixed-height">{{company.固定負債}}%</td>
                         <td class="fixed-height">{{company.自己資本比率}}%</td>
+                        <td class="fixed-height">{{company.流動比率}}%</td>
                     </tr>
                     <!-- 他の行も同様に追加可能 -->
                 </tbody>
@@ -104,8 +106,6 @@
            
         </div>
     </div>
-   
-
     <!-- テーブル（バリュエーション） -->
 
     <br>
@@ -149,20 +149,52 @@
                         <th scope="col" class="fixed-width">平均年収</th>
                         <th scope="col" class="fixed-width">勤続年数</th>     
                         <th scope="col" class="fixed-width">従業員数</th> 
+                        <th scope="col" class="fixed-width">人件費/純利益</th> 
                         
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="fixed-height">{{company.平均年齢}}歳</td>
-                        <td class="fixed-height">{{company.平均年収}}百万</td>
+                        <td class="fixed-height">{{company.平均年収}}万</td>
                         <td class="fixed-height">{{company.勤続年数}}年</td>
                         <td class="fixed-height">{{company.従業員数}}人</td>
+                        <td class="fixed-height">{{company.人件費_純利益}}%</td>
                     </tr>
                     <!-- 他の行も同様に追加可能 -->
                 </tbody>
             </table>
         </div>
     </div>
+
+    <br>
+    <div class="d-flex justify-content-center align-items-center" style="height: 20vh;">
+        <div class="mb-5 w-50">
+            <label for="" class="form-label font-type font-size-fami">その他</label>
+            
+            <!-- テーブル -->
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th scope="col" class="fixed-width">上場年数</th>
+                        <th scope="col" class="fixed-width">研究開発売上比率</th>    
+                        <th scope="col" class="fixed-width">取締役報酬</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fixed-height">{{company.上場年数}}年</td>
+                        <td class="fixed-height">{{company.研究開発売上比率}}%</td>
+                        <td class="fixed-height">{{company.取締役報酬}}万</td>
+                    </tr>
+                    <!-- 他の行も同様に追加可能 -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- その他情報 -->
+
+
+  
 
 {% endblock %}
