@@ -104,7 +104,7 @@ class Company(models.Model):
     
     研究開発売上比率 = models.FloatField('研究開発売上比率', null=True, blank=True)
     
-    上場年数 = models.FloatField('上場年数', null=True, blank=True)
+    上場年数 = models.IntegerField('上場年数', null=True, blank=True)
     
     def __str__(self):
         return f'{self.会社名}' 
