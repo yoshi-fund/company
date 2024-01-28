@@ -57,8 +57,8 @@
                         <th scope="col" class="fixed-width ">売上高３年平均</th>
                         <th scope="col" class="fixed-width">営業益３年平均</th>
                         <th scope="col" class="fixed-width">ROE</th>
-                        <th scope="col" class="fixed-width">粗利率</th>
-                        <th scope="col" class="fixed-width">株価上昇率</th>
+                        <th scope="col" class="fixed-width">営業利益率</th>
+                        <th scope="col" class="fixed-width">一人当たりの売上高</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,8 +66,8 @@
                         <td class="fixed-height">{{company.売上高}}%</td>
                         <td class="fixed-height">{{company.営業利益}}%</td>
                         <td class="fixed-height">{{company.roe}}%</td>
-                        <td class="fixed-height">{{company.粗利率}}%</td>
-                        <td class="fixed-height">{{company.株価上昇率}}%</td>
+                        <td class="fixed-height">{{company.営業利益率}}%</td>
+                        <td class="fixed-height">{{company.従業員一人当たりの売上}}万</td>
                     </tr>
                     <!-- 他の行も同様に追加可能 -->
                 </tbody>
@@ -179,6 +179,7 @@
                         <th scope="col" class="fixed-width">上場年数</th>
                         <th scope="col" class="fixed-width">研究開発売上比率</th>    
                         <th scope="col" class="fixed-width">取締役報酬</th> 
+                        <th scope="col" class="fixed-width">株価上昇率</th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -186,6 +187,7 @@
                         <td class="fixed-height">{{company.上場年数}}年</td>
                         <td class="fixed-height">{{company.研究開発売上比率}}%</td>
                         <td class="fixed-height">{{company.取締役報酬}}万</td>
+                        <td class="fixed-height">{{company.株価上昇率}}%</td>
                     </tr>
                     <!-- 他の行も同様に追加可能 -->
                 </tbody>
