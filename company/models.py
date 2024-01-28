@@ -100,10 +100,6 @@ class Company(models.Model):
     
     人件費_純利益 = models.FloatField('純利益に占める人件費', null=True, blank=True)
     
-    賞与引当金_従業員数 = models.FloatField('従業員一人当たりの賞与引当金', null=True, blank=True)
-    
-    退職給付引当金_従業員数 = models.FloatField('従業員一人あたりの退職給付引当金', null=True, blank=True)
-    
     従業員一人当たりの売上 = models.FloatField('従業員一人当たりの売上', null=True, blank=True)
     
     研究開発売上比率 = models.FloatField('研究開発売上比率', null=True, blank=True)
