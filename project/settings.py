@@ -83,8 +83,8 @@ DATABASES = {
  'default': {
        'ENGINE': 'django.db.backends.postgresql',
        'NAME': 'perfect_fututer',
-       'USER': '00000',
-       'PASSWORD': '00000',
+       'USER': '',
+       'PASSWORD': '',
        'HOST': 'localhost',
        'PORT': '5432',
    }
