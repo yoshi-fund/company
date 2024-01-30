@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'cluster',
     'widget_tweaks',
+    'django_cleanup'
+    
 ]
 
 MIDDLEWARE = [
