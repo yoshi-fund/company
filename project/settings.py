@@ -84,7 +84,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 DATABASES = {
  'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'perfect_fututer',
+       'NAME': 'real_fututer',
        'USER': '',
        'PASSWORD': '',
        'HOST': 'localhost',

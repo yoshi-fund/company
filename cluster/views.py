@@ -4,8 +4,8 @@ from .forms import DataInputForm
 import pandas as pd
 import joblib
 
-# モデルのロード
-kmeans_model = joblib.load('/Users/anaiyoshikazu/yos/kmeans_model.pkl')
+
+kmeans_model = joblib.load('/Users/anaiyoshikazu/real_data/Mirai-joblib/kmeans_model.pkl')
 
 class ClusterView(View):
     form_class = DataInputForm
@@ -23,6 +23,7 @@ class ClusterView(View):
             # データフレームの作成
             new_data = pd.DataFrame([data])
             
+            # 既存のデータ前処理をそのまま使用
             # データ型の変換
             for column in new_data.columns:
                 new_data[column] = pd.to_numeric(new_data[column], errors='coerce')
@@ -30,18 +31,20 @@ class ClusterView(View):
             # NaN値の処理（必要に応じて）
             new_data.fillna(0, inplace=True)
             
-             # クラスタラベルに対応する名前のマッピング
+            # クラスタ予測
+            cluster_label = kmeans_model.predict(new_data)
+
+            # クラスタラベルに対応する名前のマッピング
             cluster_names = {
-                0: '平均的な会社',
-                1: '大量に建物を保有',
-                2: '利益成長化け物',
+                0: '安定型(財務基盤強し)',
+                1: '負債と建物を大量の所持',
+                2: 'The 平均',
                 3: '出来杉くん(優秀)'
             }
 
-            # クラスタ予測
-            cluster_label = kmeans_model.predict(new_data)
             # クラスターラベルを名前に変換
             cluster_name = cluster_names.get(cluster_label[0], '未知のクラスター')
+
             # 変換されたクラスター名をテンプレートに渡す
             return render(request, 'cluster/classification_result.html', {'cluster_name': cluster_name})
         

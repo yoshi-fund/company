@@ -40,9 +40,9 @@ class Company(models.Model):
     )
     
     CLUSTER = (
-        (0, '平均的な会社'),
-        (1, '建物を大量に保有'),
-        (2, '利益成長バケモノ'),
+        (0, '安定型(財務基盤強し)'),
+        (1, '負債と建物を大量の所持'),
+        (2, 'The 平均'),
         (3, '出来杉くん(優秀)'),
     )
     
@@ -75,8 +75,6 @@ class Company(models.Model):
 
     株価上昇率 = models.FloatField('3年の株価上昇率', null=True, blank=True)
     
-    cluster = models.IntegerField('クラスター', choices=CLUSTER, null=True, blank=True)
-    
     粗利率 = models.FloatField('粗利率', null=True, blank=True)
     
     per = models.FloatField('per', null=True, blank=True)
@@ -100,22 +98,25 @@ class Company(models.Model):
     
     事業内容 = models.TextField('事業内容', null=True, blank=True)
     
+    上場年数 = models.IntegerField('上場年数', null=True, blank=True)
+    
     # 新たにフィールド追加
-    
-    流動比率 = models.FloatField('流動比率', null=True, blank=True)
-    
-    取締役報酬 = models.FloatField('取締役報酬', null=True, blank=True)
     
     人件費_純利益 = models.FloatField('純利益に占める人件費', null=True, blank=True)
     
+    取締役報酬 = models.FloatField('取締役報酬', null=True, blank=True)
+    
     従業員一人当たりの売上 = models.FloatField('従業員一人当たりの売上', null=True, blank=True)
+    
+    流動比率 = models.FloatField('流動比率', null=True, blank=True)
     
     研究開発売上比率 = models.FloatField('研究開発売上比率', null=True, blank=True)
     
-    上場年数 = models.IntegerField('上場年数', null=True, blank=True)
+    cluster = models.IntegerField('クラスター', choices=CLUSTER, null=True, blank=True)
     
     def __str__(self):
         return f'{self.会社名}' 
 
     # category = models.IntegerField('カテゴリー', choices=CATEGORY)
+
 
