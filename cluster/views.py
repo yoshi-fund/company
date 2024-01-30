@@ -4,7 +4,7 @@ from .forms import DataInputForm
 import pandas as pd
 import joblib
 
-# 新しいモデルのロードパスに更新
+
 kmeans_model = joblib.load('/Users/anaiyoshikazu/real_data/Mirai-joblib/kmeans_model.pkl')
 
 class ClusterView(View):
