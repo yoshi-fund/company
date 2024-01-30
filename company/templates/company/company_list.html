@@ -112,7 +112,7 @@
                                             <li class="list-group-item">平均年収: {{ company.平均年収 }}万</li>
                                             <li class="list-group-item">勤続年数: {{ company.勤続年数 }}年</li>
                                             <li class="list-group-item">売上高3年平均: {{ company.売上高 }}%</li>
-                                            <li class="list-group-item">株価上昇率<small>(2020年1月〜2023年12月)</small>: mark{{ company.株価上昇率 }}%</li>
+                                            <li class="list-group-item">株価上昇率<small>(2020年1月〜2023年12月)</small>: {{ company.株価上昇率 }}%</li>
                                             <li class="list-group-item">クラスター : <mark>{{ company.get_cluster_display }}</mark></li>
                                             <li class="list-group-item">主要な保有銘柄: {{ company.持ち株 }}</li>
                                         </ul>
