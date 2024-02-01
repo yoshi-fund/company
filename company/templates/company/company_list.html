@@ -52,7 +52,7 @@
         <!-- サイドバーのセクション -->
        <div class="col-md-2">
     <!-- Bootstrapのcardクラスを使用したサイドバーのコンテナ -->
-    <div class="card text-center custom-sidebar custom-font position-fixed">
+    <div class="card text-center custom-sidebar custom-font">
         <div class="card-header">
             絞り込み項目
         </div>
@@ -65,6 +65,12 @@
             </li>
             <li class="list-group-item">
                 <a class="nav-link {% if request.GET.ordering == '平均年齢' %}active{% endif %}" href="?ordering=平均年齢">平均年齢</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link {% if request.GET.ordering == '上場年数' %}active{% endif %}" href="?ordering=上場年数">上場年数</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link {% if request.GET.ordering == '人件費_純利益' %}active{% endif %}" href="?ordering=人件費_純利益">人件費/純利益</a>
             </li>
             <li class="list-group-item">
                 <a class="nav-link {% if request.GET.ordering == '株価上昇率' %}active{% endif %}" href="?ordering=株価上昇率">株価上昇率</a>
