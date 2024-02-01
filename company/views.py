@@ -87,21 +87,26 @@ class Industry(generic.ListView):
 class Cluster(generic.ListView):
     template_name = 'company/company_list.html'
     paginate_by = 20
-    
+
     def get_queryset(self):
         cluster_id = self.kwargs['cluster']
-        ordering = self.request.GET.get('ordering', '平均年収')  
-        order_direction = self.request.GET.get('order_direction', 'desc')  # デフォルトは降順
+        query = self.request.GET.get('query', '')  # 検索クエリを取得
+        ordering = self.request.GET.get('ordering', '平均年収')
+        order_direction = self.request.GET.get('order_direction', 'desc')
 
-        # 昇順/降順の設定
         if order_direction == 'asc':
             ordering = ordering
         else:
             ordering = '-' + ordering
 
-       
-        return Company.objects.filter(cluster=cluster_id).order_by(ordering)
-    
+        # 会社名に基づいてフィルタリングし、さらにクラスターIDでフィルタリング
+        queryset = Company.objects.filter(cluster=cluster_id)
+        if query:
+            queryset = queryset.filter(会社名__icontains=query)  # 会社名でフィルタリング
+
+        queryset = queryset.order_by(ordering)
+
+        return queryset
 
 
 
