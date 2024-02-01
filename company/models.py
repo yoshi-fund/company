@@ -115,7 +115,7 @@ class Company(models.Model):
     cluster = models.IntegerField('クラスター', choices=CLUSTER, null=True, blank=True)
     
     def __str__(self):
-        return f'{self.会社名}' 
+        return f'会社名 : {self.会社名} 業種 : {self.get_industry_display()}  クラスター : {self.get_cluster_display()}' 
 
     # category = models.IntegerField('カテゴリー', choices=CATEGORY)
 

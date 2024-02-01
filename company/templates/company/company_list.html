@@ -52,31 +52,25 @@
         <!-- サイドバーのセクション -->
        <div class="col-md-2">
     <!-- Bootstrapのcardクラスを使用したサイドバーのコンテナ -->
-    <div class="card text-center custom-sidebar custom-font">
+    <div class="card text-center custom-sidebar custom-font position-fixed">
         <div class="card-header">
             絞り込み項目
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
-                <a class="nav-link {% if request.GET.ordering == '平均年収' %}active{% endif %}" href="?ordering=平均年収">平均年収</a>
-            </li>
-            <li class="list-group-item">
-                <a class="nav-link {% if request.GET.ordering == '勤続年数' %}active{% endif %}" href="?ordering=勤続年数">勤続年数</a>
-            </li>
-            <li class="list-group-item">
                 <a class="nav-link {% if request.GET.ordering == '平均年齢' %}active{% endif %}" href="?ordering=平均年齢">平均年齢</a>
             </li>
             <li class="list-group-item">
-                <a class="nav-link {% if request.GET.ordering == '上場年数' %}active{% endif %}" href="?ordering=上場年数">上場年数</a>
+                <a class="nav-link {% if request.GET.ordering == '平均年収' %}active{% endif %}" href="?ordering=平均年数">平均年収</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link {% if request.GET.ordering == '勤続年数' %}active{% endif %}" href="?ordering=勤続年数">勤続年数</a>
             </li>
             <li class="list-group-item">
                 <a class="nav-link {% if request.GET.ordering == '人件費_純利益' %}active{% endif %}" href="?ordering=人件費_純利益">人件費/純利益</a>
             </li>
             <li class="list-group-item">
                 <a class="nav-link {% if request.GET.ordering == '株価上昇率' %}active{% endif %}" href="?ordering=株価上昇率">株価上昇率</a>
-            </li>
-            <li class="list-group-item">
-                <a class="nav-link {% if request.GET.ordering == '売上高' %}active{% endif %}" href="?ordering=売上高">売上高3年平均</a>
             </li>
             <!-- 他のリンクはここに追加 -->
         </ul>
@@ -114,13 +108,15 @@
                                         <p class="card-text">業種: {{ company.get_industry_display }}</p>
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item">{{ company.事業内容 | linebreaks }}</li>
-                                            <li class="list-group-item">平均年齢: {{ company.平均年齢 }}歳</li>
-                                            <li class="list-group-item">平均年収: {{ company.平均年収 }}万</li>
-                                            <li class="list-group-item">勤続年数: {{ company.勤続年数 }}年</li>
-                                            <li class="list-group-item">売上高3年平均: {{ company.売上高 }}%</li>
-                                            <li class="list-group-item">株価上昇率<small>(2020年1月〜2023年12月)</small>: {{ company.株価上昇率 }}%</li>
+                                            <li class="list-group-item">平均年齢 : {{ company.平均年齢 }}歳</li>
+                                            <li class="list-group-item">平均年収 : {{ company.平均年収 }}万</li>
+                                            <li class="list-group-item">勤続年数 : {{ company.勤続年数 }}年</li>
+                                            <li class="list-group-item">勤続年数 : {{ company.上場年数 }}年</li>
+                                            <li class="list-group-item">人件費 / 純利益 : {{ company.人件費_純利益 }}%</li>
+                                            <li class="list-group-item">取締役報酬 : {{ company.取締役報酬 }}万</li>
+                                            <li class="list-group-item">株価上昇率<small>(2020年1月〜2023年12月)</small> : {{ company.株価上昇率 }}%</li>
                                             <li class="list-group-item">クラスター : <mark>{{ company.get_cluster_display }}</mark></li>
-                                            <li class="list-group-item">主要な保有銘柄: {{ company.持ち株 }}</li>
+                                            <li class="list-group-item">主要な保有銘柄 : {{ company.持ち株 }}</li>
                                         </ul>
                                         </mark>
                                     </div>
